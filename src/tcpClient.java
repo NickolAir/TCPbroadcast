@@ -1,3 +1,5 @@
+import org.w3c.dom.ls.LSOutput;
+
 import java.io.*;
 import java.net.Socket;
 import java.nio.file.Paths;
@@ -36,10 +38,12 @@ public class tcpClient {
                 dataOutputStream.write(buffer, 0, bytesRead);
             }
 
-            dataInputStream.close();
+            System.out.println();
+            System.out.println("File " + Paths.get(path).getFileName().toString() + " received");
+
             dataOutputStream.close();
-            inputStream.close();
-            outputStream.close();
+            dataInputStream.close();
+
         } catch (IOException e) {
             e.printStackTrace();
         }

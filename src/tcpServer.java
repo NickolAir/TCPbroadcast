@@ -111,6 +111,11 @@ public class tcpServer {
                     System.out.println("Instant speed: " + instantSpeed + " byte/sec");
                     System.out.println("Average speed: " + avgSpeed + " byte/sec");
 
+                    System.out.println(filename + " received");
+
+                    dataInputStream.close();
+                    dataOutputStream.close();
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
