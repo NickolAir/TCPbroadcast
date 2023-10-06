@@ -25,23 +25,21 @@ public class tcpClient {
                 OutputStream outputStream = socket.getOutputStream();
                 DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
                 InputStream inputStream = new FileInputStream(path);
-                DataInputStream dataInputStream = new DataInputStream(inputStream)
+                DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
         ) {
             dataOutputStream.writeUTF(Paths.get(path).getFileName().toString());
             dataOutputStream.writeLong(fileSize);
 
-            byte[] buffer = new byte[1024];
+            byte[] buffer = new byte[4096];
             int bytesRead;
             while ((bytesRead = inputStream.read(buffer)) != -1) {
                 dataOutputStream.write(buffer, 0, bytesRead);
             }
 
-            boolean success = dataInputStream.readBoolean();
-            if (success) {
-                System.out.println("File " + path + " transferred.");
-            } else {
-                System.out.println("Transfer error " + path);
-            }
+            dataInputStream.close();
+            dataOutputStream.close();
+            inputStream.close();
+            outputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
